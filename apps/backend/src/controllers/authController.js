@@ -59,26 +59,6 @@ const login = async (req, res) => {
 
   const { email, password } = req.body;
 
-  // Truth System Override for Admin
-  if (email === 'admin@contractor.com' && password === 'adminpassword') {
-    const payload = {
-      user: {
-        id: 999,
-        role: 'ADMIN',
-      },
-    };
-
-    return jwt.sign(
-      payload,
-      process.env.JWT_SECRET,
-      { expiresIn: '24h' },
-      (err, token) => {
-        if (err) throw err;
-        res.json({ token });
-      }
-    );
-  }
-
   try {
     const user = await prisma.user.findUnique({ where: { email } });
     if (!user) {
