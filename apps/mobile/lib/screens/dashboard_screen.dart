@@ -5,12 +5,27 @@ import '../services/api_service.dart';
 import 'visit_screen.dart';
 import 'task_screen.dart';
 import 'package:geolocator/geolocator.dart';
+import '../utils/update_manager.dart';
 
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
 
+  @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  @override
+  void initState() {
+    super.initState();
+    // Check for updates after the first frame
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      UpdateManager.checkForUpdates(context);
+    });
+  }
+
   Future<void> _logAttendance(BuildContext context, String type) async {
-    final apiService = ApiService();
+...
     
     // Get location
     LocationPermission permission = await Geolocator.checkPermission();

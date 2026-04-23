@@ -94,4 +94,18 @@ class ApiService {
     );
     return response.statusCode == 200;
   }
+
+  Future<Map<String, dynamic>?> getLatestRelease() async {
+    try {
+      final response = await http.get(
+        Uri.parse('${Config.baseUrl}/releases/latest'),
+      );
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body);
+      }
+    } catch (e) {
+      print('Update check failed: $e');
+    }
+    return null;
+  }
 }

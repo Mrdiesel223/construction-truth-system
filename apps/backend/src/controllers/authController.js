@@ -41,7 +41,10 @@ const register = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: '24h' },
       (err, token) => {
-        if (err) throw err;
+        if (err) {
+          console.error('JWT Sign Error:', err);
+          return res.status(500).json({ message: 'Error generating token' });
+        }
         res.json({ token });
       }
     );
@@ -82,7 +85,10 @@ const login = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: '24h' },
       (err, token) => {
-        if (err) throw err;
+        if (err) {
+          console.error('JWT Sign Error:', err);
+          return res.status(500).json({ message: 'Error generating token' });
+        }
         res.json({ token });
       }
     );

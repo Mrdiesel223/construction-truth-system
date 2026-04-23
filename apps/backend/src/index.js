@@ -22,6 +22,7 @@ app.use('/api/zones', require('./routes/zoneRoutes'));
 app.use('/api/alerts', require('./routes/alertRoutes'));
 app.use('/api/upload', require('./routes/uploadRoutes'));
 app.use('/api/reports', require('./routes/reportRoutes'));
+app.use('/api/releases', require('./routes/releaseRoutes'));
 
 app.get('/', (req, res) => {
   res.send('Field Staff Management API is running...');

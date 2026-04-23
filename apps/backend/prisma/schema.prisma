@@ -176,6 +176,18 @@ model Alert {
   message   String
   severity  String   // "LOW", "MEDIUM", "HIGH", "CRITICAL"
   resolved  Boolean  @default(false)
-  timestamp DateTime @default(now())
-  createdAt DateTime @default(now())
+  timestamp DateTime       @default(now())
+  createdAt DateTime       @default(now())
 }
+
+model AppRelease {
+  id           Int      @id @default(autoincrement())
+  version      String   // e.g. "1.0.1"
+  buildNumber  Int      // e.g. 2
+  downloadUrl  String   // URL to APK
+  mandatory    Boolean  @default(false)
+  releaseNotes String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+

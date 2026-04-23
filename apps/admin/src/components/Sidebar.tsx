@@ -28,6 +28,7 @@ const menuItems = [
   { icon: Users, label: 'Workforce', href: '/workers' },
   { icon: MapIcon, label: 'Live Map', href: '/map' },
   { icon: History, label: 'Activity Logs', href: '/logs' },
+  { icon: ArrowUpRight, label: 'App Releases', href: '/releases' },
   { icon: Settings, label: 'Settings', href: '/settings' },
 ];
 
