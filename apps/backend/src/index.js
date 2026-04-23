@@ -47,7 +47,7 @@ app.get('/api/health', async (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.send('Field Staff Management API is running...');
+  res.send(`Field Staff Management API is running... (Last Deploy: ${new Date().toISOString()})`);
 });
 
 app.listen(PORT, () => {
