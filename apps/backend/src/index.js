@@ -24,6 +24,27 @@ app.use('/api/upload', require('./routes/uploadRoutes'));
 app.use('/api/reports', require('./routes/reportRoutes'));
 app.use('/api/releases', require('./routes/releaseRoutes'));
 
+app.get('/api/health', async (req, res) => {
+  try {
+    const userCount = await prisma.user.count();
+    res.json({ 
+      status: 'UP', 
+      database: 'CONNECTED', 
+      userCount,
+      env: {
+        node: process.version,
+        port: process.env.PORT
+      }
+    });
+  } catch (err) {
+    res.status(500).json({ 
+      status: 'DOWN', 
+      database: 'DISCONNECTED', 
+      error: err.message 
+    });
+  }
+});
+
 app.get('/', (req, res) => {
   res.send('Field Staff Management API is running...');
 });
