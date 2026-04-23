@@ -5,7 +5,7 @@ const prisma = require('./config/db');
 
 dotenv.config();
 
-// Production deploy trigger: IPv4 Pooler Update
+// Production deploy trigger: Prisma 7 Compliance Fix
 const app = express();
 const PORT = process.env.PORT || 5000;
 
