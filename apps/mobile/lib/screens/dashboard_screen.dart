@@ -25,7 +25,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Future<void> _logAttendance(BuildContext context, String type) async {
-...
+    final apiService = ApiService();
     
     // Get location
     LocationPermission permission = await Geolocator.checkPermission();
