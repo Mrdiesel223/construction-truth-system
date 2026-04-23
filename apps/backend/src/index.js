@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const prisma = require('./config/db');
 
 dotenv.config();
 
