@@ -51,6 +51,8 @@ app.get('/', (req, res) => {
   res.send(`Field Staff Management API is running... (Last Deploy: ${new Date().toISOString()})`);
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server is running on port ${PORT}`);
+  console.log(`Health check available at http://localhost:${PORT}/api/health`);
+  console.log(`Deployment Version: ${process.env.RENDER_GIT_COMMIT || 'local'}`);
 });

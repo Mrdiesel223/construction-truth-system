@@ -7,16 +7,26 @@ class ApiService {
   final _storage = const FlutterSecureStorage();
 
   Future<String?> login(String email, String password) async {
-    final response = await http.post(
-      Uri.parse('${Config.baseUrl}/auth/login'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({'email': email, 'password': password}),
-    );
+    try {
+      final response = await http.post(
+        Uri.parse('${Config.baseUrl}/auth/login'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'email': email.trim(), 
+          'password': password.trim()
+        }),
+      ).timeout(const Duration(seconds: 10));
 
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      await _storage.write(key: 'token', value: data['token']);
-      return data['token'];
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        await _storage.write(key: 'token', value: data['token']);
+        return data['token'];
+      } else {
+        final data = jsonDecode(response.body);
+        print('Login failed: ${data['message'] ?? 'Unknown error'}');
+      }
+    } catch (e) {
+      print('Login error: $e');
     }
     return null;
   }

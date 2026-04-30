@@ -13,11 +13,16 @@ class AuthProvider with ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
-    final token = await _apiService.login(email, password);
-    _isAuthenticated = token != null;
-    
-    _isLoading = false;
-    notifyListeners();
+    try {
+      final token = await _apiService.login(email, password);
+      _isAuthenticated = token != null;
+    } catch (e) {
+      _isAuthenticated = false;
+      print('AuthProvider login error: $e');
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
     return _isAuthenticated;
   }
 

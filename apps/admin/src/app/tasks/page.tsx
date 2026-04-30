@@ -19,14 +19,10 @@ export default function TaskManagement() {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
-    fetchTasks();
-  }, []);
-
   const fetchTasks = async () => {
     try {
       // In a real app, this would be an admin endpoint to get all tasks
-      const res = await api.get('/tasks/my'); // Placeholder
+      const res = await api.get('/tasks/my'); 
       setTasks(res.data);
     } catch (err) {
       console.error(err);
@@ -34,6 +30,10 @@ export default function TaskManagement() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchTasks();
+  }, []);
 
   return (
     <div className="space-y-8">

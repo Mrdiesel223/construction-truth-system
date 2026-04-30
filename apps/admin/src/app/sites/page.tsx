@@ -19,10 +19,6 @@ export default function SiteManagement() {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
-    fetchSites();
-  }, []);
-
   const fetchSites = async () => {
     try {
       const res = await api.get('/sites');
@@ -33,6 +29,10 @@ export default function SiteManagement() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchSites();
+  }, []);
 
   return (
     <div className="space-y-8">

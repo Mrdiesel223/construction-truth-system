@@ -19,10 +19,6 @@ export default function EventLogs() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchEvents();
-  }, []);
-
   const fetchEvents = async () => {
     try {
       const res = await api.get('/alerts'); // Using alerts endpoint for now
@@ -33,6 +29,10 @@ export default function EventLogs() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchEvents();
+  }, []);
 
   const handleResolve = async (id: number) => {
     try {

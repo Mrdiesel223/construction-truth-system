@@ -19,10 +19,6 @@ export default function ReportsPage() {
   const [loading, setLoading] = useState(true);
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
 
-  useEffect(() => {
-    fetchSummary();
-  }, [date]);
-
   const fetchSummary = async () => {
     setLoading(true);
     try {
@@ -35,8 +31,12 @@ export default function ReportsPage() {
     }
   };
 
+  useEffect(() => {
+    fetchSummary();
+  }, [date]);
+
   const handleExport = async () => {
-    window.open(`http://localhost:5000/api/reports/export`, '_blank');
+    window.open(`${api.defaults.baseURL}/reports/export`, '_blank');
   };
 
   return (

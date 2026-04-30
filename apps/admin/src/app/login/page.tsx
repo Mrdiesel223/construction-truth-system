@@ -17,12 +17,36 @@ export default function LoginPage() {
     setLoading(true);
     setError('');
 
+    const trimmedEmail = email.trim();
+    const trimmedPassword = password.trim();
+
     try {
-      const res = await api.post('/auth/login', { email, password });
-      localStorage.setItem('admin_token', res.data.token);
+      const res = await api.post('/auth/login', { 
+        email: trimmedEmail, 
+        password: trimmedPassword 
+      });
+
+      const { token, user } = res.data;
+
+      // Check if user has admin privileges
+      if (user.role !== 'ADMIN' && user.role !== 'MANAGER') {
+        setError('Access denied. This dashboard is for administrators only.');
+        setLoading(false);
+        return;
+      }
+
+      localStorage.setItem('admin_token', token);
+      localStorage.setItem('admin_user', JSON.stringify(user));
       router.push('/');
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Login failed. Please check your credentials.');
+      console.error('Login error:', err);
+      if (!err.response) {
+        setError('Cannot connect to the server. Please check your internet connection or try again later.');
+      } else if (err.response.status === 400) {
+        setError('Invalid email or password.');
+      } else {
+        setError(err.response.data?.message || 'Login failed. Please try again.');
+      }
     } finally {
       setLoading(false);
     }

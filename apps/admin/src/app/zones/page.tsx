@@ -19,14 +19,6 @@ export default function ZoneManagement() {
   const [zones, setZones] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    fetchSites();
-  }, []);
-
-  useEffect(() => {
-    if (selectedSiteId) fetchZones(selectedSiteId);
-  }, [selectedSiteId]);
-
   const fetchSites = async () => {
     const res = await api.get('/sites');
     setSites(res.data);
@@ -42,6 +34,14 @@ export default function ZoneManagement() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchSites();
+  }, []);
+
+  useEffect(() => {
+    if (selectedSiteId) fetchZones(selectedSiteId);
+  }, [selectedSiteId]);
 
   return (
     <div className="space-y-8">

@@ -45,12 +45,20 @@ const register = async (req, res) => {
           console.error('JWT Sign Error:', err);
           return res.status(500).json({ message: 'Error generating token' });
         }
-        res.json({ token });
+        res.json({ 
+          token,
+          user: {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            role: user.role
+          }
+        });
       }
     );
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server error');
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
@@ -93,12 +101,20 @@ const login = async (req, res) => {
           console.error('JWT Sign Error:', err);
           return res.status(500).json({ message: 'Error generating token' });
         }
-        res.json({ token });
+        res.json({ 
+          token,
+          user: {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            role: user.role
+          }
+        });
       }
     );
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server error');
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
